@@ -2,7 +2,7 @@ from sqlalchemy.orm import relationship
 
 from db.database import Base
 
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Boolean
 
 
 class DbUser(Base):
@@ -13,6 +13,7 @@ class DbUser(Base):
     password = Column(String)
     posts = relationship('DbPost', back_populates='user')
     comments = relationship('DbComment', back_populates='user')
+    is_admin = Column(Boolean)
 
 
 class DbPost(Base):

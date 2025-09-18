@@ -20,7 +20,6 @@ class UserDisplay(BaseModel):
 class PostBase(BaseModel):
     title: str
     text: str
-    creator_id: int
 
 #for Post Display:
 
@@ -40,6 +39,7 @@ class PostDisplay(BaseModel):
     title: str
     text: str
     timestamp: datetime
+    id: int
     user: User
     comments: List[Comment]
     class Config():
@@ -49,6 +49,7 @@ class PostDisplay(BaseModel):
 class CommentBase(BaseModel):
     text: str
     username: str
+    post_id: int
     class Config():
         from_attributes = True
 
@@ -59,3 +60,9 @@ class CommentDisplay(BaseModel):
     user: User
     class Config():
         from_attributes = True
+
+
+class UserAuth(BaseModel):
+    id: int
+    username: str
+    email: str

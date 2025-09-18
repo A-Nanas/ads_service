@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 
 from db.database import get_db
-from routers.schemas import UserBase
+from routers.schemas import UserBase, UserDisplay
 from db import db_user
 
 router = APIRouter(
@@ -10,6 +10,10 @@ router = APIRouter(
     tags=['user']
 )
 
-@router.post('')
+@router.post('', response_model=UserDisplay)
 def create_user(request: UserBase, db: Session = Depends(get_db)):
     return db_user.create_user(db, request)
+
+@router.post('/admin')
+def create_admin(request: UserBase, db: Session = Depends(get_db)):
+    return db_user.create_user(db, request, is_admin=True)
